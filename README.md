@@ -13,7 +13,7 @@ This project is designed to automate end-to-end testing for a web application us
 **Set up local project**
 ```shell
 $ git clone https://github.com/willzhang-lb/rentCover.git
-$ cd Parabank-typescript
+$ cd rentCover
 ```
 
 **Install dependencies**
