@@ -11,9 +11,9 @@ test('Get a New Quote', async ({ page }) => {
     await homePage.selectDate("2026-09-25", "2026-09-26");
     await homePage.selectLivingCountry('United States');
     await homePage.selectVehicleType('Car');
-
     await homePage.clickButtonInForm('Get Your Instant Quote');
 
+    await homePage.verifyPopUpVisible();
     await homePage.selectState('California');
     await homePage.clickButtonInModal('Get Your Instant Quote')
     await quotePage.verifyHeadingTitleCorrect('Your protection');

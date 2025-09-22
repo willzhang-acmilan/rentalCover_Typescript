@@ -27,14 +27,10 @@ export class HomePage extends BasePage {
             return date.toLocaleDateString('en-US', options);
         }
 
-        
         const selectSingleDate = async (dateStr: string) => {
             const targetDate = new Date(dateStr);
             const monthYear = targetDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
             const dayLabel = formatDate(dateStr);
-
-            // Open the calendar 
-            await this.page.locator('#coverageDates-startDate').click();
 
             // Navigate to the correct month/year
             while (true) {
@@ -47,7 +43,8 @@ export class HomePage extends BasePage {
             // Click the day
             await this.page.locator(`td[aria-label*="${dayLabel}"]`).click();
         }
-
+         // Open the calendar 
+        await this.page.locator('#coverageDates-startDate').click();
         await selectSingleDate(startDate);
         await selectSingleDate(endDate);
 
@@ -88,6 +85,10 @@ export class HomePage extends BasePage {
     async clickButtonInModal(buttonText: string) {
         const button = this.modal.getByRole('button', { name: buttonText });
         await button.click();
+    }
+
+    async verifyPopUpVisible() {
+        await expect(this.modal, 'Modal should be visible').toBeVisible({ timeout: 10000 });
     }
 
 } 
