@@ -32,7 +32,7 @@ npx playwright install
 
 **Run test**
 ```shell
-npx playwright test
+npx playwright test --headed
 ```
 
 **Project Structure**
