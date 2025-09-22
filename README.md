@@ -38,6 +38,3 @@ npx playwright test
 │   └───workflows
 ├───pages
 ├───tests
-├───trace
-├───allure-report
-├───playwright-report
