@@ -21,8 +21,9 @@ export class HomePage extends BasePage {
     async selectLivingCountry(countryName: string) {
         // Click Change button if visible
         const btn = this.page.locator('button[data-test-id="cor-change-button"]');
-        await btn.waitFor({ state: 'visible' });   // wait until it’s visible
-        await btn.click();
+        if (await btn.isVisible()) {
+            await btn.click();
+        }
 
         // Click Country dropdown to open options and select
         await this.selectDropdownOption('Country of Residence', countryName);
@@ -32,8 +33,9 @@ export class HomePage extends BasePage {
     async selectVehicleType(vehicleType: VehicleType) {
         // Click Change button if visible
         const btn = this.page.locator('button[data-test-id="vehicle-change-button"]');
-        await btn.waitFor({ state: 'visible' });   // wait until it’s visible
-        await btn.click();
+        if (await btn.isVisible()) {
+            await btn.click();
+        }
 
         // Click Vehicle Type dropdown to open options and select
         await this.selectDropdownOption('Vehicle Type', vehicleType);
