@@ -73,7 +73,7 @@ export class BasePage {
                 if (!visibleMonthText) throw new Error("Could not read visible month");
                 const visibleDate = parseMonthYear(visibleMonthText);
 
-                if (visibleMonthText.includes(monthYear)) break;
+                if (visibleMonthText == monthYear) break;
 
                 if (targetDate > visibleDate) {
                     // Go right (future)

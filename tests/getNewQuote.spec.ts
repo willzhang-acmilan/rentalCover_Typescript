@@ -18,7 +18,7 @@ test('Get a New Quote', async ({ page }) => {
     await homePage.clickButtonInModal('Get Your Instant Quote')
     
     await quotePage.verifyHeadingTitleCorrect('Your protection');
-    await quotePage.editQuote("2025-10-25", "2025-10-26");
+    await quotePage.editQuote("2025-10-25", "2025-11-24");
     await quotePage.sendQuoteByEmail('test@example.com');
     await quotePage.clickButton('Proceed To Payment');
     // await quotePage.fillPersonalDetails('test@example.com', 'John Doe', '12345');
