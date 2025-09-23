@@ -3,12 +3,10 @@ import { BasePage } from './BasePage';
 
 export class QuotePage extends BasePage {
     readonly personalDetailForm: Locator;
-    readonly paymentMethodForm: Locator;
 
     constructor(page: Page) {
         super(page);
         this.personalDetailForm = this.page.locator('#personal-details-form');
-        this.paymentMethodForm = this.page.locator('#payment-method-form');
     }
 
     async fillPersonalDetails(email: string, fullName: string, postcode: string) {
