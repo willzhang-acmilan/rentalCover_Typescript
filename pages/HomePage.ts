@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { BookingInformation, VehicleType } from '../types/type';
+import { BookingInformation, VehicleType } from '../interface/interface';
 
 export class HomePage extends BasePage {
     readonly bookingForm: Locator;

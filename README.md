@@ -40,5 +40,5 @@ npx playwright test --headed
 │   └───workflows
 ├───pages
 ├───tests
-├───types
+├───interface
 

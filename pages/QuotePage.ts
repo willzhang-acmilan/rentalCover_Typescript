@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { BookingInformation, PaymentDetails, PersonalDetail, BookingDate} from '../types/type';
+import { BookingInformation, PaymentDetails, PersonalDetail, BookingDate} from '../interface/interface';
 
 
 export class QuotePage extends BasePage {

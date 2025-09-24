@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
 import { QuotePage } from '../pages/QuotePage';
-import { BookingInformation, VehicleType,  BookingDate, PaymentDetails, PersonalDetail} from '../types/type';
+import { BookingInformation, VehicleType,  BookingDate, PaymentDetails, PersonalDetail} from '../interface/interface';
 
 const bookingInformation: BookingInformation = {
     residence: 'United States',
