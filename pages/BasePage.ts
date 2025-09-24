@@ -47,17 +47,9 @@ export class BasePage {
 
     async selectDate(startDate: string, endDate: string) {
 
-        // Convert "2025-09-25" → "September 25, 2025"
-        const formatDate = (isoDate: string) => {
-            const date = new Date(isoDate);
-            const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
-        }
-
         const selectSingleDate = async (dateStr: string) => {
             const targetDate = new Date(dateStr);
             const monthYear = targetDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
-            const dayLabel = formatDate(dateStr);
 
             // Function to parse "Month YYYY" into a Date object
             const parseMonthYear = (text: string) => {
@@ -87,7 +79,7 @@ export class BasePage {
             }
 
             // Click the day
-            await this.page.locator(`td[aria-label*="${dayLabel}"]`).click();
+            await this.page.locator(`td[aria-label*="${dateStr}"]`).click();
         };
          // Open the calendar 
         await this.page.locator('#coverageDates-startDate').click();

@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-
-type VehicleType = 'Car' | 'Minibus' | '4*4' | 'Motorhome/RV' | 'Campervan';
+import { BookingInformation, VehicleType } from '../types/type';
 
 export class HomePage extends BasePage {
     readonly bookingForm: Locator;
@@ -44,6 +43,7 @@ export class HomePage extends BasePage {
 
     async selectState(stateName: string) {
         // Click State dropdown to open options and select
+        await this.modal.waitFor({ state: 'visible' });
         await this.selectDropdownOption('Select or type a state', stateName);
     }
 
