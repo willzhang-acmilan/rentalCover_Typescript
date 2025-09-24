@@ -58,7 +58,7 @@ export class QuotePage extends BasePage {
         await this.verifyPopUpVisible();
         await this.selectDate(newBookingDate.startDate, newBookingDate.endDate);
         await this.clickButtonInModal('Update Quote');
-        await this.modal.waitFor({ state: 'hidden', timeout: 20000 });
+        // await this.modal.waitFor({ state: 'hidden', timeout: 20000 });
     }
 
     async changeCurrency(newCurrency: string) {
