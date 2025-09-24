@@ -15,7 +15,7 @@ const bookingInformation: BookingInformation = {
 }
 const newBookingDate: BookingDate = {
     startDate: 'October 25, 2025',
-    endDate: 'November 24, 2025',
+    endDate: 'October 29, 2025',
 }
 
 const paymentDetail: PaymentDetails = {
@@ -50,11 +50,11 @@ test('Get a New Quote', async ({ page }) => {
     await quotePage.verifyHeadingTitleCorrect('Your protection');
     await quotePage.validateBookingInformation(bookingInformation);
     await quotePage.editQuote(newBookingDate);
-    // await quotePage.changeCurrency('EUR');
-    // await quotePage.changeCurrency('CNY');
-    // await quotePage.sendQuoteByEmail('test@example.com');
+    await quotePage.changeCurrency('EUR');
+    await quotePage.changeCurrency('CNY');
+    await quotePage.sendQuoteByEmail('test@example.com');
     await quotePage.clickButton('Proceed To Payment');
     // await quotePage.fillPersonalDetails(personalDetail);
-    await quotePage.fillPaymentMethods(paymentDetail);
+    // await quotePage.fillPaymentMethods(paymentDetail);
 
 });

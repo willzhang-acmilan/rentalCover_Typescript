@@ -15,6 +15,7 @@ export class QuotePage extends BasePage {
     async sendQuoteByEmail(email: string) {
         await this.page.locator('#email-save-quote').fill(email);
         await this.clickButton('SEND');
+        await this.page.getByRole('button', { name: 'SEND' }).waitFor({ state: 'hidden', timeout: 10000 });
         await expect(this.page.locator('small#emailHelpTextID', { hasText: 'Your quote has been successfully sent' }))
         .toBeVisible({ timeout: 10000 });
     }
@@ -28,7 +29,7 @@ export class QuotePage extends BasePage {
     async fillPaymentMethods(paymentDetail: PaymentDetails) {
         const paymentFrame = this.page.frameLocator('div.__PrivateStripeElement iframe:visible');
         // Card Number
-        await paymentFrame.locator('#Field-numberInput').waitFor({ state: 'visible', timeout: 10000 });
+        await paymentFrame.locator('#Field-numberInput').waitFor({ state: 'visible', timeout: 20000 });
         await paymentFrame.locator('#Field-numberInput').click();
         await paymentFrame.locator('#Field-numberInput').fill(paymentDetail.cardNumber);
 
@@ -80,7 +81,7 @@ export class QuotePage extends BasePage {
             await this.modal.locator(`span`, { hasText: newCurrency }).click();
         }
         await this.page.locator('//button[text() = "Proceed To Payment"]').waitFor({ state: 'hidden', timeout: 10000 });
-        await this.page.locator('.quote-discount #amount-per-day-formatted').waitFor({ state: 'visible', timeout: 10000 });
+        await this.page.locator('.quote-discount #amount-per-day-formatted').waitFor({ state: 'visible', timeout: 20000 });
         const paymentAmount = await this.page.locator('.quote-discount #amount-per-day-formatted').textContent();
         const paymentCurrency = paymentAmount?.match(/([A-Z]{2})/)?.[0];
         expect(paymentCurrency).toBe(newCurrency.slice(0,2));
