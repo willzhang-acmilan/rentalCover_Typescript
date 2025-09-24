@@ -53,7 +53,7 @@ export class BasePage {
 
             // Function to parse "Month YYYY" into a Date object
             const parseMonthYear = (text: string) => {
-                return new Date(`${text} 1`);
+                return new Date(`1 ${text}`);
             };
 
             while (true) {

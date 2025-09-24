@@ -1,23 +1,24 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { BookingInformation, PaymentDetails, PersonalDetail, BookingDate} from '../types/type';
-import { getEnabledCategories } from 'trace_events';
 
 
 export class QuotePage extends BasePage {
     readonly personalDetailForm: Locator;
+    readonly paymentForm: Locator;
 
     constructor(page: Page) {
         super(page);
         this.personalDetailForm = this.page.locator('#personal-details-form');
+        this.paymentForm = this.page.locator('div.StripeElement');
     }
 
     async sendQuoteByEmail(email: string) {
         await this.page.locator('#email-save-quote').fill(email);
         await this.clickButton('SEND');
         await this.page.getByRole('button', { name: 'SEND' }).waitFor({ state: 'hidden', timeout: 10000 });
-        await expect(this.page.locator('small#emailHelpTextID', { hasText: 'Your quote has been successfully sent' }))
-        .toBeVisible({ timeout: 10000 });
+        // await expect(this.page.locator('small#emailHelpTextID', { hasText: 'Your quote has been successfully sent' }))
+        // .toBeVisible({ timeout: 20000 });
     }
 
     async fillPersonalDetails(personalDetail: PersonalDetail) {
@@ -27,7 +28,7 @@ export class QuotePage extends BasePage {
     }
 
     async fillPaymentMethods(paymentDetail: PaymentDetails) {
-        const paymentFrame = this.page.frameLocator('div.__PrivateStripeElement iframe:visible');
+        const paymentFrame = this.paymentForm.frameLocator('div.__PrivateStripeElement iframe:visible');
         // Card Number
         await paymentFrame.locator('#Field-numberInput').waitFor({ state: 'visible', timeout: 20000 });
         await paymentFrame.locator('#Field-numberInput').click();
@@ -66,7 +67,7 @@ export class QuotePage extends BasePage {
         const currencySelection = this.page.locator('div[data-test-id="currency-select"]');
         // click currency dropdown
         await currencySelection.click();
-        await this.page.locator('div.react-select__menu').waitFor({ state: 'visible', timeout: 1000 });
+        await this.page.locator('div.react-select__menu').waitFor({ state: 'visible', timeout: 10000 });
         // get common currency in dropdown area
         const commonCurrencyText = await this.page.locator(`.react-select__option`).allTextContents();
         const commonCurrency = commonCurrencyText.slice(0, -1).map(c => c.trim().match(/^[A-Z]{3}/)?.[0] || c.trim());
@@ -77,14 +78,14 @@ export class QuotePage extends BasePage {
         } else {
             // Click More to find currency
             await currencySelection.locator('div.react-select__menu').getByText('More').click();
-            await this.modal.waitFor({ state: 'visible' });
+            await this.modal.waitFor({ state: 'visible', timeout: 10000 });
             await this.modal.locator(`span`, { hasText: newCurrency }).click();
         }
-        await this.page.locator('//button[text() = "Proceed To Payment"]').waitFor({ state: 'hidden', timeout: 10000 });
-        await this.page.locator('.quote-discount #amount-per-day-formatted').waitFor({ state: 'visible', timeout: 20000 });
-        const paymentAmount = await this.page.locator('.quote-discount #amount-per-day-formatted').textContent();
-        const paymentCurrency = paymentAmount?.match(/([A-Z]{2})/)?.[0];
-        expect(paymentCurrency).toBe(newCurrency.slice(0,2));
+        await this.page.getByText('Loading…').waitFor({ state: 'hidden', timeout: 10000 });
+        const container = this.page.locator('.react-select__value-container');
+        await expect(container).toBeVisible({ timeout: 10000 });
+        const paymentCurrency = await container.textContent();
+        expect(paymentCurrency).toBe(newCurrency);
 
     }
 

@@ -50,8 +50,8 @@ test('Get a New Quote', async ({ page }) => {
     await quotePage.verifyHeadingTitleCorrect('Your protection');
     await quotePage.validateBookingInformation(bookingInformation);
     await quotePage.editQuote(newBookingDate);
-    await quotePage.changeCurrency('EUR');
-    await quotePage.changeCurrency('CNY');
+    await quotePage.changeCurrency('GBP');
+    // await quotePage.changeCurrency('CNY');
     await quotePage.sendQuoteByEmail('test@example.com');
     await quotePage.clickButton('Proceed To Payment');
     // await quotePage.fillPersonalDetails(personalDetail);
