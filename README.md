@@ -6,10 +6,6 @@ This project is designed to automate end-to-end testing for a web application us
 ## Assumptions Made
 1. users can select any country for renting, select any date in future, select living country and vehicle type, change living country and vehicle type in home page,
 2. users can send quote, change booking date, change currency, fill in personal detail, and fill in payment method detail in quote page
-
-## Issues Found
-1. I try to locate some element by getByTestId method, but not working as the tag's attribute is data-test-id, not data-testid
-2. The date duration cannot exceed around two month, otherwise it would not navigate to policy page
   
 ## Technologies Used
 - **Programming Language**: Typescript
@@ -44,4 +40,5 @@ npx playwright test --headed
 │   └───workflows
 ├───pages
 ├───tests
+├───types
 
