@@ -37,20 +37,23 @@ test('Get a New Quote', async ({ page }) => {
     const quotePage = new QuotePage(page);
 
     await homePage.navigateToHomePage();
-    await homePage.selectCountry(bookingInformation.residence);
+    await homePage.selectCountry(bookingInformation.destination);
     await homePage.selectDate(bookingInformation.bookingDate.startDate, bookingInformation.bookingDate.endDate);
     await homePage.selectLivingCountry(bookingInformation.residence);
     await homePage.selectVehicleType(bookingInformation.vehicleType);
     await homePage.clickButtonInForm('Get Your Instant Quote');
 
-    await homePage.verifyPopUpVisible();
-    await homePage.selectState(bookingInformation.pickupState);
-    await homePage.clickButtonInModal('Get Your Instant Quote')
-    
+
+    if (bookingInformation.pickupState) {
+        await homePage.verifyPopUpVisible();
+        await homePage.selectState(bookingInformation.pickupState);
+        await homePage.clickButtonInModal('Get Your Instant Quote');
+    }
+
     await quotePage.verifyHeadingTitleCorrect('Your protection');
     await quotePage.validateBookingInformation(bookingInformation);
     await quotePage.editQuote(newBookingDate);
-    await quotePage.changeCurrency('GBP');
+    await quotePage.changeCurrency('EUR');
     // await quotePage.changeCurrency('CNY');
     await quotePage.sendQuoteByEmail('test@example.com');
     await quotePage.clickButton('Proceed To Payment');

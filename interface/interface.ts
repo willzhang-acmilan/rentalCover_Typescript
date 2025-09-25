@@ -4,7 +4,7 @@ export interface BookingInformation {
     residence: string;
     destination: string;
     bookingDate: BookingDate;
-    pickupState: string;
+    pickupState?: string;
     vehicleType: VehicleType;
 }
 

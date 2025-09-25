@@ -66,7 +66,7 @@ export class QuotePage extends BasePage {
     async changeCurrency(newCurrency: string) {
         const currencySelection = this.page.locator('div[data-test-id="currency-select"]');
         // click currency dropdown
-        await currencySelection.click();
+        await currencySelection.locator('.react-select__control').click();
         await this.page.locator('div.react-select__menu').waitFor({ state: 'visible', timeout: 10000 });
         // get common currency in dropdown area
         const commonCurrencyText = await this.page.locator(`.react-select__option`).allTextContents();
@@ -94,13 +94,16 @@ export class QuotePage extends BasePage {
         const destination = await this.page.locator('dd[data-test-id="quote-destination"]').textContent();
         const startDate = await this.page.locator('dd[data-test-id="quote-from-date"]').textContent();
         const endDate = await this.page.locator('dd[data-test-id="quote-to-date"]').textContent();
-        const pickupState = await this.page.locator('dd[data-test-id="quote-destination-state"]').textContent();
+        
 
         expect(liveCountry).toBe(expectedInfo.residence);
         expect(destination).toBe(expectedInfo.destination);
         expect(startDate).toBe(expectedInfo.bookingDate.startDate);
         expect(endDate).toBe(expectedInfo.bookingDate.endDate);
-        expect(pickupState).toBe(expectedInfo.pickupState);
+        if (expectedInfo.pickupState) {
+            const pickupState = await this.page.locator('dd[data-test-id="quote-destination-state"]').textContent();
+            expect(pickupState).toBe(expectedInfo.pickupState);
+        }
     }
 
     async verifyHeadingTitleCorrect(expectedTitle: string) {

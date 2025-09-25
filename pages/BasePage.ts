@@ -24,9 +24,19 @@ export class BasePage {
         await dropdown.click();
 
         // Select option by visible text
-        const option = this.page.locator(`.react-select__option`, { hasText: optionText });
+        let option = this.page.locator(`.react-select__option`, { hasText: optionText });
+        if (!(await option.isVisible())) {
+            await dropdown.locator('input').fill(optionText);
+            option = this.page.locator(`.react-select__option`, { hasText: optionText });
+
+            if (!(await option.isVisible())) {
+                throw new Error(`Option "${optionText}" not found in dropdown "${labelName}"`);
+            }
+         }
         await option.click();
         await option.waitFor({ state: 'hidden' });
+
+
 
         // verify the dropdown selection
         await dropdown.locator('.react-select__single-value').waitFor({ state: 'visible' });
