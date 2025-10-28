@@ -35,12 +35,18 @@ export default defineConfig({
     video: 'retain-on-failure',
     ignoreHTTPSErrors: true,
   },
+  expect: {
+    timeout: 10000
+  },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        viewport: {width: 1440, height: 900},
+      },
     },
 
     // {

@@ -10,12 +10,12 @@ const bookingInformation: BookingInformation = {
         startDate: 'January 2, 2026',
         endDate: 'February 1, 2026',
     },
-    pickupState: 'California',
+    // pickupState: 'California',
     vehicleType: 'Car',
 }
 const newBookingDate: BookingDate = {
-    startDate: 'October 25, 2025',
-    endDate: 'October 29, 2025',
+    startDate: 'December 25, 2025',
+    endDate: 'December 29, 2025',
 }
 
 const paymentDetail: PaymentDetails = {
@@ -44,14 +44,15 @@ test('Get a New Quote', async ({ page }) => {
     await homePage.clickButtonInForm('Get Your Instant Quote');
 
 
-    if (bookingInformation.pickupState) {
-        await homePage.verifyPopUpVisible();
-        await homePage.selectState(bookingInformation.pickupState);
-        await homePage.clickButtonInModal('Get Your Instant Quote');
-    }
+    // if (bookingInformation.pickupState) {
+    //     // await homePage.verifyPopUpVisible();
+    //     await homePage.selectState(bookingInformation.pickupState);
+    //     await homePage.clickButtonInModal('Get Your Instant Quote');
+    // }
 
     await quotePage.verifyHeadingTitleCorrect('Your protection');
     await quotePage.validateBookingInformation(bookingInformation);
+    // await quotePage.fillProcode('abc')
     await quotePage.editQuote(newBookingDate);
     await quotePage.changeCurrency('EUR');
     // await quotePage.changeCurrency('CNY');

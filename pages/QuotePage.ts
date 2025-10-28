@@ -112,4 +112,8 @@ export class QuotePage extends BasePage {
         const heading = this.page.locator('header', { hasText: 'your protection'}).first();
         await expect(heading).toHaveText(expectedTitle);
     }
+
+    async fillProcode(code: string) {
+        await this.page.locator('#promocode').fill(code);
+    }
 }
